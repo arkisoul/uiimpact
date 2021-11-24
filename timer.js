@@ -1,0 +1,6 @@
+setImmediate(() => console.log('Set immediate'))
+const intervalId = setInterval(() => console.log('Set interval'), 1000)
+setTimeout(() => console.log('Set timeout'), 1000)
+new Promise((resolve, reject) => setTimeout(() => resolve('Promise resolved'), 0)).then((data) => console.log(data))
+process.nextTick(() => console.log('Next tick'))
+setTimeout(() => clearInterval(intervalId), 1010)
