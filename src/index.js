@@ -4,12 +4,12 @@ const fs = require("fs");
 // res: http.ServerResponse
 const users = [];
 
-const server = http.createServer(function (request, response) {
+const server = http.createServer();
+server.on("request", function (request, response) {
   const method = request.method;
   const url = request.url;
   const address = new URL(url, "http://localhost:3000/");
   const pathname = address.pathname;
-  console.log(pathname);
   request.query = {};
   address.searchParams.forEach((value, key) => {
     request.query[key] = value;
@@ -18,17 +18,19 @@ const server = http.createServer(function (request, response) {
   const rawData = [];
 
   // access request body
-  request.on("data", function(chunk) {
-      rawData.push(chunk);
-  })
+  request.on("data", function (chunk) {
+    rawData.push(chunk);
+  });
 
-  request.on("end", function() {
-      console.log(rawData);
-      request.rawBody = rawData;
-      const data = Buffer.concat(rawData).toString();
-      console.log(data);
-      request.body = data;
-  })
+  // request.pipe(process.stdout);
+
+  request.on("end", function () {
+    console.log(rawData);
+    request.rawBody = rawData;
+    const data = Buffer.concat(rawData).toString();
+    console.log(data);
+    request.body = data;
+  });
 
   if (method === "GET" && pathname === "/") {
     response.setHeader("Content-Type", "text/plain");

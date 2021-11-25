@@ -25,7 +25,14 @@ Streams - An instance of events in nodejs
 - TCP Socket
 - fs createWriteSteam
 - crypto
-- zlip
+- zlib
+
+### Stream pipe example
+readableStreamSrc.pipe(writeableStreamDestination)
+if a, b, c and d are streams then we can pipe them together
+a.pipe(b).pipe(c).pipe(d)
+
+readableStream.pipe(duplexStream).pipe(transformStream1).pipe(transformStream2).pipe(writable)
 
 ## Problem Statement
 - Create a server - listen to port 3000
@@ -36,3 +43,14 @@ Streams - An instance of events in nodejs
     - POST /books route to create a new book (id, title, createdAt)
     - GET /authors route to get authors list
     - POST /authors route to create a new author (id, name, createdAt)
+
+function createServer(cb) {
+    request, response
+    cb(request, response);
+}
+
+createServer((request, response) {
+
+})
+
+client => request (give me http://localhost:3000/user) => server
