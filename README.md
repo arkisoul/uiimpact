@@ -1,11 +1,38 @@
 # Assignment - Topic Node server
 
+## Events - events module in nodejs
+
+## Concept - Streams
+Streams - An instance of events in nodejs
+    - Readable - Create a read strem/ read the data in chunks
+    - Writeable - can write the data in chunks
+    - Duplex - can read/write data in chunks
+    - Transform - special case of duplex stream. read/write stream. in between it can transform the data.
+
+### Readable stream in Nodejs
+- process.stdin
+- HTTP Request on the server
+- HTTP Response on the client
+- TCP Socket
+- fs createReadStream
+- crypto
+- zlib
+
+### Writeable Stream in Nodejs
+- process.stdout, process.stderr
+- HTTP Request on the client
+- HTTP Response on the server
+- TCP Socket
+- fs createWriteSteam
+- crypto
+- zlip
+
 ## Problem Statement
 - Create a server - listen to port 3000
 - Create below route handlers
     - Base route to send a welcome message back to the client
-    - Wild card route to send a 404 message back to the client
-    - GET /books route to get books list
+    - Wild bookscard route to send a 404 message back to the client
+    - GET / route to get books list
     - POST /books route to create a new book (id, title, createdAt)
     - GET /authors route to get authors list
     - POST /authors route to create a new author (id, name, createdAt)
