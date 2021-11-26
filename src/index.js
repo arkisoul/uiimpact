@@ -1,5 +1,6 @@
 const http = require("http");
 const fs = require("fs");
+const path = require("path");
 // req: http.IncomingMessage
 // res: http.ServerResponse
 const users = [];
@@ -33,8 +34,41 @@ server.on("request", function (request, response) {
   });
 
   if (method === "GET" && pathname === "/") {
-    response.setHeader("Content-Type", "text/plain");
-    return response.end("Welcome to the Nodejs server");
+    fs.readFile("src/views/index.html", (err, data) => {
+      if (err) {
+        response.writeHead(404, "Content-Type: text/plain");
+        response.write("No page found");
+        return response.end();
+      }
+
+      response.writeHead(200, "Content-Type: text/html");
+      response.write(data);
+      return response.end();
+    });
+  } else if (method === "GET" && pathname === "/about") {
+    fs.readFile("src/views/about.html", (err, data) => {
+      if (err) {
+        response.writeHead(404, "Content-Type: text/plain");
+        response.write("No page found");
+        return response.end();
+      }
+
+      response.writeHead(200, "Content-Type: text/html");
+      response.write(data);
+      return response.end();
+    });
+  } else if (method === "GET" && pathname === "/contact") {
+    fs.readFile("src/views/contact.html", (err, data) => {
+      if (err) {
+        response.writeHead(404, "Content-Type: text/plain");
+        response.write("No page found");
+        return response.end();
+      }
+
+      response.writeHead(200, "Content-Type: text/html");
+      response.write(data);
+      return response.end();
+    });
   } else if (method === "GET" && pathname === "/test") {
     response.setHeader("Content-Type", "application/json");
     return response.end(
@@ -69,9 +103,10 @@ server.on("request", function (request, response) {
   } else if (method === "GET" && pathname === "/file") {
     const readStream = fs.createReadStream("bigfile.txt");
     readStream.pipe(response);
+  } else {
+    response.statusCode = 404;
+    return response.end("No matching route found. Please try again");
   }
-  response.statusCode = 404;
-  return response.end("No matching route found. Please try again");
 });
 
 server.listen(3000, function () {
