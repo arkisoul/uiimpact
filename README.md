@@ -54,3 +54,5 @@ createServer((request, response) {
 })
 
 client => request (give me http://localhost:3000/user) => server
+
+openssl req -nodes -new -x509 -keyout server.key -out server.cert
