@@ -1,0 +1,17 @@
+1. Interaction with a Database server
+2. Network interaction
+3. File system interaction
+4. Modularization
+
+Nodejs
+c++ libraries
+javascript libraries
+
+node core modules
+
+v8 engine
+libuv => asynchronus nature of the javascript runtime env
+
+npm => node package manager
+npx => 
+yarn => node package manager
