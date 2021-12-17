@@ -68,12 +68,12 @@ setTimeout(() => {
       }
       console.log("final value", value);
     }
-    try {
-      printOut();
-      throw new Error("final error");
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   printOut();
+    //   throw new Error("final error");
+    // } catch (error) {
+    //   console.log(error);
+    // }
 }, 0);
 // let count = 0;
 // console.time()
@@ -81,4 +81,29 @@ setTimeout(() => {
 //     count++;
 // }
 // console.timeEnd();
-console.log("FINISH");
+// console.log("FINISH");
+
+const fs = require("fs");
+
+function someAsyncOperation(callback) {
+  // Assume this takes 95ms to complete
+  fs.readFile("./node-basics.txt", callback);
+}
+
+const timeoutScheduled = Date.now();
+
+setTimeout(() => {
+  const delay = Date.now() - timeoutScheduled;
+
+  console.log(`${delay}ms have passed since I was scheduled`);
+}, 100);
+
+// do someAsyncOperation which takes 95 ms to complete
+someAsyncOperation(() => {
+  const startCallback = Date.now();
+
+  // do something that will take 10ms...
+  while (Date.now() - startCallback < 10) {
+    // do nothing
+  }
+});
