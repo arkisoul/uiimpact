@@ -1,23 +1,5 @@
-// const someFun = require("./someFun");
-// console.log(someFun);
-const CONFIG = require("./config/index")
-console.log(CONFIG);
-const MYVAR = 'Hello World!';
-
-const myFun = () => {
-    return MYVAR;
-}
-// const obj = {};
-// obj.akey = 'avalue';
-// obj.anotherkey = 'another value';
-// console.log(exports, require, module, __filename, __dirname)
-console.log(module.exports)
-// exports.aFun = myFun
-// exports.aVar = MYVAR
-// module.exports = myFun
-module.exports.aFun = myFun
-// module.exports.aVar = MYVAR
-// module.exports = {
-//     myFun,
-//     MYVAR
-// }
+const {gr1, gr2, gr3} = require('./greet');
+console.log('Indexjs', abc)
+abc.gr1('Greet 1');
+abc.gr2('Greet 2');
+abc.gr3('Greet 3');
