@@ -54,3 +54,24 @@ console.log("After append");
 // });
 // console.log('After file open function');
 
+function readFilePromise() {
+  return new Promise((resolve, reject) => {
+    fs.readFile("./w2d2/test.txt", (err, data) => {
+      if(err) reject(err)
+      resolve(data)
+    });
+  })
+}
+
+function appendFilePromise(data) {
+  return new Promise((resolve, reject) => {
+    fs.appendFile("./w2d2/test2.txt", data, (err) => {
+    if(err) reject(err)
+    resolve('data appended successfully')
+  })
+  })
+}
+
+readFilePromise()
+  .then(data => appendFilePromise(data).then(res => console.log(res)))
+  .catch(error => console.error(error))

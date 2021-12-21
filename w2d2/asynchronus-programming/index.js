@@ -70,3 +70,25 @@ try {
  * 
  * 
  */
+
+function demoPromise() {
+    return new Promise((resolve, reject) => {
+        setTimeout(function () {
+          const total = 10 + 20;
+          resolve(total);
+        }, 1000);
+    })
+}
+
+demoPromise()
+    .then((data) => console.log(data))
+    .catch(error => console.error(error))
+    
+async function asyncFunction() {
+    try {
+        const data = await demoPromise();
+        console.log(data);
+    } catch (error) {
+        console.error(error)
+    }
+}
