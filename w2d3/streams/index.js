@@ -35,5 +35,10 @@ const writeStream = fs.createWriteStream("./w2d3/test2.txt");
 // readStream.on("error", (error) => {
 //     console.log(error)
 // })
-readStream.pipe(writeStream)
+readStream
+    .on("close", () => {
+        console.log('Reading finished');
+    })
+    .pipe(writeStream)
+    .on("close", () => console.log('Writing finished'))
 readStream.pipe(process.stdout)
