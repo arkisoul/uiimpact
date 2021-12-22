@@ -73,5 +73,6 @@ function appendFilePromise(data) {
 }
 
 readFilePromise()
-  .then(data => appendFilePromise(data).then(res => console.log(res)))
-  .catch(error => console.error(error))
+  .then(data => 
+    appendFilePromise(data).then(res => console.log(res)))
+.catch(error => console.error(error))
