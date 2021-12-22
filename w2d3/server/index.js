@@ -9,12 +9,18 @@ server.on("request", (request, response) => {
     console.log(method, url)
     request.on('data', (chunk) => console.log('req data', chunk.toString()))
     if(method === 'GET' && url === '/') {
+        response.writeHead(200, 'Ok', 'Content-Type: text/plain')
         response.write("You are visiting the root url");
         response.end()
     } else if(method === 'POST' && url === '/') {
-        response.write("You are visiting the root url with POST method");
+        response.writeHead(201, "Created! Done", {
+          "Content-Type": "application/json",
+          "Accept-Type": "text/plain, text/html, text/*",
+        });
+        response.write(JSON.stringify({success: true, data: [], message: 'List'}));
         response.end();
     } else {
+        response.writeHead(404, 'Not found');
         response.write("End of server. No matching rout found");
         response.end();
     }
