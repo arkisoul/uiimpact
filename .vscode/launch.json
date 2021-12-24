@@ -13,6 +13,15 @@
                 ""
             ],
             "program": "${workspaceFolder}/w2d1/index.js"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Run server",
+            "skipFiles": [
+                ""
+            ],
+            "program": "${workspaceFolder}/w2d5/index.js"
         }
     ]
 }
