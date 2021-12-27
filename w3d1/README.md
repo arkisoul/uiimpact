@@ -138,8 +138,8 @@ db.patients.find();
 - findOne => returns the first matching document or null
     eg
     ```
-        db.patients.fineOne();
-        db.patients.fineOne({});
+        db.patients.findOne();
+        db.patients.findOne({});
         db.patients.findOne({
             name: "Ramcharan Gupta"
         })
