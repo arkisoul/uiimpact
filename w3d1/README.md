@@ -160,9 +160,20 @@ db.patients.updateMany({gender: 'male'}, {$set: { weight: 66}}, {$upsert: true})
 ```
 
 ### Delete operation
-- deleteOne
-- deleteMany
+- deleteOne (Deletes a single document. If there are multiple matching documents, it will delete only first matching document)
+eg
+```
+db.<collection_name>.deleteOne({filter_query})
+db.patients.deleteOne({gender: 'male'})
+```
+- deleteMany (Deletes multiple documents that matche the condition/filter query)
+eg
+```
+db.<collection_name>.deleteMany({filter_query})
+db.patients.deleteMany({gender: 'male'})
+```
 
+### More CRUD commands
 findAndModify
 findOneAndUpdate
 replaceOne
