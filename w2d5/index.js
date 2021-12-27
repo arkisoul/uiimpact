@@ -22,6 +22,8 @@ server.on("request", (request, response) => {
   for (const [key, value] of parsedUrl.searchParams.entries()) {
       query[key] = value;
   }
+  const price = JSON.parse(parsedUrl.searchParams.get("price"));
+  console.log(query, price, typeof price);
   request.query = query;
 
   request.on("data", (chunk) => data.push(chunk));

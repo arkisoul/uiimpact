@@ -7,11 +7,11 @@ const client = new net.Socket();
 
 client.connect({ port: PORT, host: HOST }, () => {
   console.log("client connected");
+  client.write("Client sent:: Hello");
 });
 
 client.on("data", (data) => {
   console.log(`Client:: ${data.toString()}`);
-  client.write("Client sent::" + data.toString());
   client.destroy();
 });
 
