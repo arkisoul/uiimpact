@@ -1,6 +1,7 @@
 const http = require("http");
 const express = require("express");
-const { MongoClient, ObjectId } = require("mongodb");
+const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 
 const LoggerMiddleware = require("./middlewares/LoggerMiddleware");
 const userRouter = require("./routes/users");
@@ -10,6 +11,8 @@ const app = express();
 const server = http.createServer(app);
 const client = new MongoClient("mongodb://localhost:27017");
 let db;
+
+mongoose.connect("mongodb://localhost:27017/uiimpact");
 
 const connectMongo = async () => {
   try {
