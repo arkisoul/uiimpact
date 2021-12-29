@@ -12,3 +12,15 @@
     `express <project_name>`
     or
     `npx express-generator <project_name>`
+
+## Middleware
+In express a middleware is a function that has access to the request object, the response object, and the next function.
+
+request => response cycle
+
+### Types of middleware
+- External
+- Custom
+- Router level
+- Application level
+- Error Handler middleware

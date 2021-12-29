@@ -8,6 +8,13 @@ const server = http.createServer(app);
 const client = new MongoClient("mongodb://localhost:27017");
 let db;
 
+const LoggerMiddleware = (req, res, next) => {
+  const method = req.method;
+  const url = req.url;
+  console.log(`${new Date().toISOString()} [${method}] ${url}`);
+  next();
+}
+
 const connectMongo = async () => {
   try {
     const mongoClient = await client.connect();
@@ -18,7 +25,11 @@ const connectMongo = async () => {
   }
 };
 
-app.get("/", (req, res) => {
+app.use(LoggerMiddleware);
+app.get("/", (req, res, next) => {
+  console.log('I am in a middleware function');
+  next();
+}, (req, res) => {
   return res.send(`Welcome to Express Application`);
 });
 
