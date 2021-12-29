@@ -2,6 +2,7 @@ const http = require("http");
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
+const {join} = require("path");
 
 const LoggerMiddleware = require("./middlewares/LoggerMiddleware");
 const userRouter = require("./routes/users");
@@ -32,6 +33,9 @@ app.use((req, res, next) => {
   req.db = db;
   next();
 })
+app.set("view engine", "pug");
+app.set("views", join(__dirname, "views"));
+app.use(express.static(join(__dirname, "public")))
 
 app.get("/", (req, res, next) => {
   console.log(
@@ -42,7 +46,11 @@ app.get("/", (req, res, next) => {
   next();
 }, (req, res) => {
   console.log(req.anewprop, res.anothernewprop)
-  return res.send(`Welcome to Express Application`);
+  return res.render("index");
+});
+
+app.get("/about", (req, res) => {
+  return res.render("about");
 });
 
 app.get("/test", (req, res) => {

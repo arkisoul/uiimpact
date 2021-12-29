@@ -24,3 +24,17 @@ request => response cycle
 - Router level
 - Application level
 - Error Handler middleware
+
+### Mongoose
+What? - Mongoose is an ODB => Object Data Mapper
+ORM => Object Relation Mapping
+
+Why? - They map the document structure to an object. We can work with this object that will be mapped to a docoument.
+
+
+### View Engine
+Pug ~ Jade
+Haml
+Handlebarjs
+Mustachejs
+Ejs
