@@ -11,6 +11,8 @@ let db;
 const LoggerMiddleware = (req, res, next) => {
   const method = req.method;
   const url = req.url;
+  req.anewprop = 'A new prop value';
+  res.anothernewprop = 'Another new prop value'
   console.log(`${new Date().toISOString()} [${method}] ${url}`);
   next();
 }
@@ -25,11 +27,20 @@ const connectMongo = async () => {
   }
 };
 
+// application level Middlewares
 app.use(LoggerMiddleware);
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res, next) => {
-  console.log('I am in a middleware function');
+  console.log(
+    "I am in a middleware function",
+    req.anewprop,
+    res.anothernewprop
+  );
   next();
 }, (req, res) => {
+  console.log(req.anewprop, res.anothernewprop)
   return res.send(`Welcome to Express Application`);
 });
 
@@ -51,7 +62,7 @@ app.get('/users/:id', async (req, res) => {
 
 app.post("/users", async (req, res) => {
     try {
-        const newUser = { name: 'Kamal', email: 'kamal@mailinator.com', phone: 0987582900, age: 34, height: 167, weight: 60}
+        const newUser = req.body;
         const inserted = await db.collection("users").insertOne(newUser);
         return res.json({success: true, msg: 'User created', data: inserted});
     } catch (error) {
@@ -70,6 +81,13 @@ app.put("/", (req, res) => {
 app.delete("/", (req, res) => {
   return res.send(`I am a delete request response`);
 });
+
+// Error handler middleware aka Global error handler in express application
+app.use((err, req, res, next) => {
+  res.statusCode = 500;
+  res.statusMessage = 'Internal Server Error'
+  return res.send(err.message);
+})
 
 server.listen(PORT, async () => {
   await connectMongo();
