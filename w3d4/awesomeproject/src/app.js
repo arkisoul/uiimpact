@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const {join} = require("path");
 
 const LoggerMiddleware = require("./middlewares/LoggerMiddleware");
+const webRouter = require("./routes/web");
 const userRouter = require("./routes/users");
 
 const PORT = 3000;
@@ -37,38 +38,7 @@ app.set("view engine", "pug");
 app.set("views", join(__dirname, "views"));
 app.use(express.static(join(__dirname, "public")))
 
-app.get("/", (req, res, next) => {
-  console.log(
-    "I am in a middleware function",
-    req.anewprop,
-    res.anothernewprop
-  );
-  next();
-}, (req, res) => {
-  console.log(req.anewprop, res.anothernewprop)
-  return res.render("index");
-});
-
-app.get("/about", (req, res) => {
-  return res.render("about");
-});
-
-app.get("/test", (req, res) => {
-  return res.send(`I am a test route`);
-});
-
-app.post("/", (req, res) => {
-  return res.send(`I am a post request response`);
-});
-
-app.put("/", (req, res) => {
-  return res.send(`I am a put request response`);
-});
-
-app.delete("/", (req, res) => {
-  return res.send(`I am a delete request response`);
-});
-
+app.use("/", webRouter);
 app.use("/api", userRouter);
 
 // Error handler middleware aka Global error handler in express application
