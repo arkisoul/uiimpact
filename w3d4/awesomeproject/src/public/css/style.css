@@ -1,0 +1,13 @@
+body {
+    background-color: antiquewhite;
+    background-image: url('/img/bg1.jpg');
+    background-size: cover;
+}
+
+.container {
+    max-width: 1080px;
+    width: 100%;
+    padding: 2em;
+    margin: 0 auto;
+    background-color: aliceblue;
+}

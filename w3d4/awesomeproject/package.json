@@ -1,0 +1,29 @@
+{
+  "name": "awesomeproject",
+  "version": "1.0.0",
+  "description": "Express application",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "jest test",
+    "server": "npx nodemon src/app.js"
+  },
+  "keywords": [
+    "express",
+    "web",
+    "app",
+    "express",
+    "app",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "Arpit Jain",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.1.4",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
