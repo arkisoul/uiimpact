@@ -20,17 +20,17 @@
 
 ### Problem statement -- PART II
 - Add profile image to patients document
-    - Route PUT `/patients/profile-image`. Send image, save that image to a folder and save the path in database.
+    - Route PUT `/patients/:patientId/profile-image`. Send image, save that image to a folder and save the path in database.
 - Get patient details
     - Route GET `/patients/:patientId`. Return patient details by patient id
 
 - Add profile image to physicians document
-    - Route PUT `/physicians/profile-image`. Send image, save that image to a folder and save the path in database.
+    - Route PUT `/physicians/:physicianId/profile-image`. Send image, save that image to a folder and save the path in database.
 - Get physicians details
     - Route GET `/physicians/:physicianId`. Return physicians details by patient id
 
 ### Explore - Either using MongoDB driver or mongoose
-    - How can we select some fields of a document at the of querying it? i.e. select and return only name, email, and phone fields from a patient.
+    - How can we select some fields of a document at the time of querying it? i.e. select and return only name, email, and phone fields from a patient.
     - How can we query and sort the data?
     - How can we query paginated data?
 
