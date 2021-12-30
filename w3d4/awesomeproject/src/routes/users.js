@@ -43,16 +43,20 @@ router.post("/users", async (req, res) => {
 });
 
 router.post('/user-profile', multerObj.single('profileImage'), async (req, res) => {
-  const uploadPath = path.join(__dirname, "../../uploads");
+  const relativePath = `profile-images/${req.file.originalname}`
+  const uploadPath = path.join(__dirname, "../../uploads/profile-images");
   console.log(uploadPath, fs.existsSync(uploadPath));
   if (!fs.existsSync(uploadPath)) {
     fs.mkdirSync(uploadPath);
   }
   console.log(uploadPath, fs.existsSync(uploadPath));
-  fs.writeFile(path.join(uploadPath, req.file.originalname), req.file.buffer, (err) => {
+  fs.writeFile(path.join(uploadPath, req.file.originalname), req.file.buffer, async (err) => {
     if(err) {
       return res.status(500).json({success: false, message: err.message})
     }
+
+    await UserModel.updateMany({}, { $set: { profileImage: relativePath } });
+
     return res
       .status(201)
       .json({

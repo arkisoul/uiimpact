@@ -53,6 +53,7 @@ app.use((req, res, next) => {
 app.set("view engine", "pug");
 app.set("views", join(__dirname, "views"));
 app.use(express.static(join(__dirname, "public")));
+app.use(express.static(join(__dirname, "../uploads")));
 
 app.use(
   methodOverride(function (req, res) {

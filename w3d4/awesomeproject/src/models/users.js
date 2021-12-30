@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
         message: 'Please provide a valid email id',
         validator: (value) => true
     }},
+    profileImage: { type: String, required: false },
     age: { type: Number, required: false},
     hobbies: [{type: String}],
     address: [{
