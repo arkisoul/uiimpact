@@ -3,6 +3,7 @@ const express = require("express");
 const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
 const {join} = require("path");
+const methodOverride = require("method-override");
 
 const LoggerMiddleware = require("./middlewares/LoggerMiddleware");
 const webRouter = require("./routes/web");
@@ -38,6 +39,16 @@ app.set("view engine", "pug");
 app.set("views", join(__dirname, "views"));
 app.use(express.static(join(__dirname, "public")))
 
+app.use(
+  methodOverride(function (req, res) {
+    if (req.body && typeof req.body === "object" && "_method" in req.body) {
+      // look in urlencoded POST bodies and delete it
+      var method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+  })
+);
 app.use("/", webRouter);
 app.use("/api", userRouter);
 

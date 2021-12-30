@@ -2,3 +2,23 @@ extends layout.pug
 
 block content
     h1 Signup Page
+
+    if message
+        p #{message}
+
+    .signup-box
+        form(action="/signup", method="post") 
+            .form-group 
+                label(for="name") 
+                input#name.form-control(type="text" name="name" placeholder="Enter name" required)
+            
+            .form-group 
+                label(for="email") 
+                input#email.form-control(type="email" name="email" placeholder="Enter email" required)
+            
+            .form-group 
+                label(for="phone") 
+                input#phone.form-control(type="text" name="phone" placeholder="Enter phone" required)
+
+            .form-group 
+                button.btn.btn-primary(type="submit" role="button") Register

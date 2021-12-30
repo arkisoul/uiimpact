@@ -2,3 +2,9 @@ extends layout.pug
 
 block content
     h1 Services Page
+    .services
+        if services
+            each service in services
+                .service-box 
+                    .service-head 
+                        h3 #{service.name}
