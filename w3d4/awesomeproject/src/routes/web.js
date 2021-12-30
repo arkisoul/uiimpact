@@ -39,12 +39,13 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
+  console.log(req.files, req.file, req.body)
   try {
-    await UserModel.create({
-      name: req.body.name,
-      email: req.body.email,
-      phone: req.body.phone,
-    });
+    // await UserModel.create({
+    //   name: req.body.name,
+    //   email: req.body.email,
+    //   phone: req.body.phone,
+    // });
     return res.render("signup", {
       title: "Signup",
       message: "Signup successful",

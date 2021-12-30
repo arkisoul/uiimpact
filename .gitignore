@@ -304,4 +304,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 !OpenSSL.zip
+
+uploads
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,archlinuxpackages,git,tortoisegit,gitbook,node,visualstudiocode,sublimetext,notepadpp

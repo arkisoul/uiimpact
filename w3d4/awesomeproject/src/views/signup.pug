@@ -7,18 +7,22 @@ block content
         p #{message}
 
     .signup-box
-        form(action="/signup", method="post") 
+        form(action="/signup", method="post", enctype="multipart/form-data") 
             .form-group 
-                label(for="name") 
+                label(for="name") Name
                 input#name.form-control(type="text" name="name" placeholder="Enter name" required)
             
             .form-group 
-                label(for="email") 
+                label(for="email") Email
                 input#email.form-control(type="email" name="email" placeholder="Enter email" required)
             
             .form-group 
-                label(for="phone") 
+                label(for="phone") Phone
                 input#phone.form-control(type="text" name="phone" placeholder="Enter phone" required)
+            
+            .form-group 
+                label(for="profileImage") Profile Image
+                input#profileImage.form-control(type="file" name="profileImage" required)
 
             .form-group 
                 button.btn.btn-primary(type="submit" role="button") Register
