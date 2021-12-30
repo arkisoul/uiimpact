@@ -1,7 +1,12 @@
 const express = require("express");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const UserModel = require("../models/users");
+
 const router = express.Router();
+const multerObj = multer();
 
 router.get("/", (req, res) => {
   return res.render("index", { title: "Home" });
@@ -38,18 +43,35 @@ router.get("/signup", (req, res) => {
   return res.render("signup", { title: "Signup" });
 });
 
-router.post("/signup", async (req, res) => {
-  console.log(req.files, req.file, req.body)
+router.post("/signup", multerObj.single("profileImage"), async (req, res) => {
   try {
-    // await UserModel.create({
-    //   name: req.body.name,
-    //   email: req.body.email,
-    //   phone: req.body.phone,
-    // });
-    return res.render("signup", {
-      title: "Signup",
-      message: "Signup successful",
-    });
+    const relativePath = `profile-images/${req.file.originalname}`;
+    const uploadPath = path.join(__dirname, "../../uploads/profile-images");
+    console.log(uploadPath, fs.existsSync(uploadPath));
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath);
+    }
+    console.log(uploadPath, fs.existsSync(uploadPath));
+    fs.writeFile(
+      path.join(uploadPath, req.file.originalname),
+      req.file.buffer,
+      async (err) => {
+        if (err) {
+          return res.status(500).json({ success: false, message: err.message });
+        }
+
+        await UserModel.create({
+          name: req.body.name,
+          email: req.body.email,
+          phone: req.body.phone,
+          profileImage: relativePath,
+        });
+        return res.render("signup", {
+          title: "Signup",
+          message: "Signup successful",
+        });
+      }
+    );
   } catch (error) {
     return res.render("signup", {
       title: "Signup",
