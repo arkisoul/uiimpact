@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 
 const UserModel = require("../models/users");
 
@@ -39,8 +40,61 @@ router.get("/login", (req, res) => {
   return res.render("login", { title: "Login" });
 });
 
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || (email && email.length === 0)) {
+    return res
+      .status(400)
+      .render("login", { title: "Login", message: "Invalid email" });
+  }
+  if (!password || (password && password.length === 0)) {
+    return res
+      .status(400)
+      .render("login", { title: "Login", message: "Invalide password" });
+  }
+  const user = await UserModel.findOne(
+    { email: email, password: password },
+    { password: 0, __v: 0, hobbies: 0, address: 0 }
+  );
+
+  if (!user) {
+    return res
+      .status(400)
+      .render("login", { title: "Login", message: "Invalid credentials" });
+  }
+
+  const now = Math.round(Date.now() / 1000);
+  const exp = now + 1 * 60 * 60;
+
+  const token = jwt.sign(
+    {
+      userId: user._id,
+      role: "user",
+      iat: now,
+      exp: exp,
+    },
+    "averyrandomsecurestring"
+  );
+
+  return res
+    .cookie("access_token", token, {
+      httpOnly: true,
+      secure: false,
+    })
+    .status(200)
+    .redirect("/user/dashboard");
+});
+
+router.get("/user/dashboard", (req, res) => {
+  return res.status(200).render("user/index", { title: "User Dashboard" });
+});
+
 router.get("/signup", (req, res) => {
   return res.render("signup", { title: "Signup" });
+});
+
+router.get("/logout", (req, res) => {
+  return res.clearCookie("access_token").redirect("/");
 });
 
 router.post("/signup", multerObj.single("profileImage"), async (req, res) => {

@@ -2,3 +2,19 @@ extends layout.pug
 
 block content
     h1 Login Page
+
+    if message
+        p #{message}
+
+    .signup-box
+        form(action="/login", method="post")             
+            .form-group 
+                label(for="email") Email
+                input#email.form-control(type="email" name="email" placeholder="Enter email" required)
+            
+            .form-group 
+                label(for="password") Password
+                input#password.form-control(type="password" name="password" placeholder="Enter password" required)
+            
+            .form-group 
+                button.btn.btn-primary(type="submit" role="button") Login
