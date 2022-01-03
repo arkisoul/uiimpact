@@ -71,6 +71,14 @@ app.use(
 app.use("/", webRouter);
 app.use("/api", userRouter);
 app.use("/api/auth", authRouter);
+app.get("/content", (req, res) => {
+  return res.format({
+    json: () => res.json({ title: "Express | Portfolio Page" }),
+    html: () => res.send("<h1>Express | Portfolio Page</h1>"),
+    xml: () => res.send("<Doc><Title>Express | Portfolio Page</Title></Doc>"),
+    text: () => res.send("Express | Portfolio Page"),
+  });
+});
 
 // Error handler middleware aka Global error handler in express application
 app.use((err, req, res, next) => {
