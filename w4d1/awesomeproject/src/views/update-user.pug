@@ -1,0 +1,22 @@
+extends layout.pug
+
+block content
+    h1 Update User
+
+    .signup-box
+        form(action="/user/" + user.id, method="post") 
+            input(type="hidden", name="_method", value="PUT")
+            .form-group 
+                label(for="name") 
+                input#name.form-control(type="text" name="name" placeholder="Enter name" required, value=user.name)
+            
+            .form-group 
+                label(for="email") 
+                input#email.form-control(type="email" name="email" placeholder="Enter email" required, value=user.email)
+            
+            .form-group 
+                label(for="phone") 
+                input#phone.form-control(type="text" name="phone" placeholder="Enter phone" required, value=user.phone)
+
+            .form-group 
+                button.btn.btn-primary(type="submit" role="button") Update User
