@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const LoggerMiddleware = require("./middlewares/LoggerMiddleware");
 const webRouter = require("./routes/web");
 const userRouter = require("./routes/users");
+const authRouter = require("./routes/auth");
 
 const PORT = 3000;
 const app = express();
@@ -67,6 +68,7 @@ app.use(
 );
 app.use("/", webRouter);
 app.use("/api", userRouter);
+app.use("/api/auth", authRouter);
 
 // Error handler middleware aka Global error handler in express application
 app.use((err, req, res, next) => {
