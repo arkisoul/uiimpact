@@ -4,6 +4,7 @@ const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
 const { join } = require("path");
 const methodOverride = require("method-override");
+const cookieParser = require("cookie-parser");
 
 const LoggerMiddleware = require("./middlewares/LoggerMiddleware");
 const webRouter = require("./routes/web");
@@ -32,6 +33,7 @@ const connectMongo = async () => {
 app.use(LoggerMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 /* 
 const multer = require("multer");
 const multerObj = multer();

@@ -29,17 +29,25 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign({
       userId: user._id,
       role: 'user',
-    //   iat: now,
-    //   exp: exp
+      iat: now,
+      exp: exp
   }, 'averyrandomsecurestring')
 
   return res
+    .cookie('access_token', token, {
+        httpOnly: true,
+        secure: process.env === 'production'
+    })
     .status(200)
     .json({
       success: true,
       message: "Login successful",
-      data: { user: user, token },
+      data: { user: user },
     });
 });
+
+router.delete("/logout", async (req, res) => {
+  return res.clearCookie('access_token').status(200).json({success: true, message: 'Successfully logout'});
+})
 
 module.exports = router;

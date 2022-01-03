@@ -5,17 +5,22 @@ const fs = require("fs");
 const path = require("path");
 
 const UserModel = require("../models/users");
+const authorizationMiddleware = require("../middlewares/AuthorizationMiddleware");
 
 const router = express.Router();
 const multerObj = multer();
 
-router.get("/users", async (req, res) => {
-  console.log("/users", req.query.age, req.query.height);
-  const users = await req.db.collection("users").find({}).toArray();
-  return res.json({ success: true, msg: "Users list", data: users });
+router.get("/users", authorizationMiddleware, async (req, res) => {
+  try {
+    console.log(req.userId, req.userRole, req.user);
+    const users = await req.db.collection("users").find({}).toArray();
+    return res.json({ success: true, msg: "Users list", data: users });
+  } catch (error) {
+    return res.status(401).json({success: false, message: error.message})
+  }
 });
 
-router.get("/users/mongoose", async (req, res) => {
+router.get("/users/mongoose", authorizationMiddleware, async (req, res) => {
   try {
     const users = await UserModel.find();
     return res.json({ success: true, message: "users list using mongoose", data: users });
@@ -24,7 +29,7 @@ router.get("/users/mongoose", async (req, res) => {
   }
 });
 
-router.get("/users/:id", async (req, res) => {
+router.get("/users/:id", authorizationMiddleware, async (req, res) => {
   console.log("with userId", req.query.age, req.query.height, req.params);
   const user = await req.db
     .collection("users")
